@@ -116,4 +116,24 @@
         from smbms_user u,smbms_address a
         where u.id=a.userId and u.id=#{id}
     </select>
+
+    <!--示例26-->
+    <resultMap id="userAddressResult" type="User">
+        <id property="id" column="id"/>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+        <collection property="addressList" ofType="Address" resultMap="userAddressResult"/>
+    </resultMap>
+    <resultMap id="addressResult" type="Address">
+        <id property="id" column="a_id"/>
+        <result property="postCode" column="postCode"/>
+        <result property="tel" column="tel"/>
+        <result property="contact" column="contact"/>
+        <result property="addressDesc" column="addressDesc"/>
+    </resultMap>
+    <select id="getAddressListByUserId" parameterType="Integer" resultMap="userAddressResult">
+        select u.*,a.id as a_id,a.contact,a.addressDesc,a.postCode,a.tel
+        from smbms_user u,smbms_address a
+        where u.id=a.userId and u.id=#{id}
+    </select>
 </mapper>

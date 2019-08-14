@@ -236,4 +236,26 @@ public class UserMapperTest {
             }
         }
     }
+
+    @Test
+    //示例27
+    public void getAddressListByUserIdTest1(){
+     SqlSession sqlSession=null;
+     User user=null;
+     Integer userId=1;
+     try {
+         sqlSession=MyBatisUtil.createSqlSession();
+         sqlSession.getMapper(UserMapper.class).getAddressListByUserId(userId);
+
+     }catch (Exception e){
+      e.printStackTrace();
+     }finally {
+          MyBatisUtil.closeSession(sqlSession);
+     }
+     if(sqlSession.getMapper(UserMapper.class).getAddressListByUserId(userId)!=null){
+         logger.debug("userList(include:addresslist)===>userCode:"+
+         user.getUserCode()+",userName:"+user.getUserName()+
+                 ",<未做映射字段>userPassword:"+user.getUserPassword());
+     }
+    }
 }
