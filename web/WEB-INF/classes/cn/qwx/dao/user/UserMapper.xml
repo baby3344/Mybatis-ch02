@@ -5,15 +5,115 @@
     <select id="getUserListyName" resultType="User" parameterType="String">
         select * from smbms_user where userName like CONCAT ('%',#{userName},'%')
     </select>
-    <!--根据用户名称查询用户列表-->
-    <select id="getUserList" resultType="User" parameterType="User">
-        select * from smbms_user where userName like CONCAT ('%',#{userName},'%')
-        and userRole=#{userRole}
-    </select>
+    <!--示例3-->
+   <select id="getUserList" resultType="User" parameterType="User">
+       select * from smbms_user where userName like CONCAT ('%',#{userName},'%')
+       and userRole=#{userRole}
+   </select>
 
     <!--根据用户名称查询用户列表（Map）-->
     <select id="getUserListByMap" resultType="User" parameterType="Map">
         select * from smbms_user where userName like CONCAT ('%',#{uName},'%')
         and userRole=#{uRole}
+    </select>
+
+    <!--根据用户名称查询用户列表（示例8）-->
+    <select id="getUserList1" resultMap="userList" parameterType="User">
+        select u.*,r.roleName from smbms_user u,smbms_role r
+        where userName like CONCAT ('%',#{userName},'%')
+        and u.userRole=#{userRole} and u.userRole=r.id
+    </select>
+    <!--示例9-->
+    <resultMap id="userList" type="User">
+        <result property="id" column="id"/>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+        <result property="phone" column="phone"/>
+        <result property="birthday" column="birthday"/>
+        <result property="gender" column="gender"/>
+        <result property="userRole" column="userRole"/>
+        <result property="userRoleName" column="roleName"/>
+    </resultMap>
+
+    <!--新增用户-->
+    <insert id="add" parameterType="User">
+        insert into smbms_user (userCode,userName,userPassword,gender,birthday,
+        phone,address,userRole,createdBy,creationDate)
+        values (#{userCode},#{userName},#{userPassword},#{gender},
+        #{birthday},#{phone},#{address},#{userRole},
+        #{createdBy},#{creationDate})
+    </insert>
+
+    <!--修改用户-->
+    <update id="modify" parameterType="User">
+        update smbms_user set userCode=#{userCode},userName=#{userName},
+        userPassword=#{userPassword},gender=#{gender},
+        phone=#{phone},address=#{address},userRole=#{userRole},
+        modifyDate=#{modifyDate},birthday=#{birthday}
+        where id=#{id}
+    </update>
+
+    <!--修改当前用户密码-->
+    <update id="updatePwd" >
+        update smbms_user set userPassword=#{userPassword} where id=#{id}
+    </update>
+
+    <!--根据ID删除用户-->
+    <delete id="deleteUserById" parameterType="Integer">
+       delete from smbms_user where id=#{id}
+    </delete>
+
+    <!--示例20
+    <resultMap id="userRoleResult" type="User">
+        <id property="id" column="id"/>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+        <result property="userRole" column="userRole"/>
+        <association property="role" javaType="Role" resultMap="roleResult">
+            <id property="id" column="r_id"/>
+            <result property="roleCode" column="roleCode"/>
+            <result property="roleName" column="roleName"/>
+        </association>
+    </resultMap>-->
+
+
+
+    <!--示例22-->
+    <resultMap id="userRoleResult" type="User">
+        <id property="id" column="id"/>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+        <result property="userRole" column="userRole"/>
+        <association property="role" javaType="Role" resultMap="roleResult"/>
+    </resultMap>
+    <resultMap id="Role" type="roleResult">
+            <id property="id" column="r_id"/>
+            <result property="roleCode" column="roleCode"/>
+            <result property="roleName" column="roleName"/>
+    </resultMap>
+
+    <select id="getUserListByRoleId" parameterType="Integer" resultMap="userRoleResult">
+        select u.*,r.id as r_id,r.roleCode,r.roleName
+        from smbms_user u,smbms_role r
+        where u.userRole=#{userRole} and u.userRole=r.id
+    </select>
+
+    <!--示例24-->
+    <resultMap id="userAddressResult" type="User">
+        <id property="id" column="id"/>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+        <collection property="addressList" ofType="Address">
+            <id property="id" column="a_id"/>
+            <result property="postCode" column="postCode"/>
+            <result property="tel" column="tel"/>
+            <result property="contact" column="contact"/>
+            <result property="addressDesc" column="addressDesc"/>
+        </collection>
+    </resultMap>
+    <select id="getAddressListByUserId" parameterType="Integer" resultMap="userAddressResult">
+        select u.*,a.id as a_id,a.contact,a.addressDesc,a.postCode,a.tel
+        from smbms_user u,smbms_address a
+        where u.id=a.userId and u.id=#{id}
     </select>
 </mapper>

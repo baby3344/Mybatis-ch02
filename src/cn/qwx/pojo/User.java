@@ -1,8 +1,20 @@
 package cn.qwx.pojo;
 
+import javax.management.relation.Role;
 import java.util.Date;
+import java.util.List;
 
 public class User {
+	private Role role;
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
 	private Integer id; //id
 	private String userCode; //用户编码
 	private String userName; //用户名称
@@ -15,6 +27,26 @@ public class User {
 	private String userRoleName; //角色名称
 	private Integer createdBy;   //创建者
 	private Date creationDate; //创建时间
+	private Integer age;  //年龄
+	private List<Address> addressList;  //用户地址列表
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}
+
+	public List<Address> getAddressList() {
+
+		return addressList;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
 	private Integer modifyBy;     //更新者
 	private Date modifyDate;   //更新时间
 	public Integer getId() {
