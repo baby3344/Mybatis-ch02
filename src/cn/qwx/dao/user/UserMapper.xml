@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.qwx.dao.user.UserMapper">
+    <!--根据用户名称查询用户列表(模糊查询)-->
+    <select id="getUserListyName" resultType="User" parameterType="String">
+        select * from smbms_user where userName like CONCAT ('%',#{userName},'%')
+    </select>
+    <!--根据用户名称查询用户列表-->
+    <select id="getUserList" resultType="User" parameterType="User">
+        select * from smbms_user where userName like CONCAT ('%',#{userName},'%')
+        and userRole=#{userRole}
+    </select>
+
+    <!--根据用户名称查询用户列表（Map）-->
+    <select id="getUserListByMap" resultType="User" parameterType="Map">
+        select * from smbms_user where userName like CONCAT ('%',#{uName},'%')
+        and userRole=#{uRole}
+    </select>
+</mapper>
