@@ -110,4 +110,56 @@ public class BillMapperTest {
         }
         logger.debug("testDelete=====>:"+count);
     }
+
+    //上机练习3
+    @Test
+    public void testGetBillProvider(){
+        SqlSession sqlSession=null;
+        List<Bill> billlist=null;
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            billlist=sqlSession.getMapper(BillMapper.class).getBillProvider("豆",6,2);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        for (Bill bill1:billlist) {
+            logger.debug("getBillProviderTest3====>订单编码:"+bill1.getBillCode()+",商品名称:"+bill1.getProductName()+
+                    ",供应商编码："+bill1.getProvider().getProCode()
+                    +",供应商名称："+bill1.getProvider().getProName()
+                    +",供应商联系人："+bill1.getProvider().getProContact()
+                    +",供应商联系电话："+bill1.getProvider().getProPhone()
+                    +",账单金额："+bill1.getTotalPrice()
+                    + ",是否付款:"+bill1.getIsPayment());
+        }
+    }
+
+    //上机练习四
+    @Test
+    public void testgetBillProviderList(){
+        SqlSession sqlSession=null;
+        List<Bill> billlist=null;
+        Integer id=1;
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            billlist=sqlSession.getMapper(BillMapper.class).getBillProviderList(id);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        for (Bill bill1:billlist) {
+            logger.debug("TestGetBillProviderList====>"
+                    +",供应商id:"+bill1.getProvider().getId()
+                    + ",供应商编码："+bill1.getProvider().getProCode()
+                    + ",商品名称:"+bill1.getProductName()
+                    +",供应商名称："+bill1.getProvider().getProName()
+                    +",供应商联系人："+bill1.getProvider().getProContact()
+                    +",供应商联系电话："+bill1.getProvider().getProPhone()
+                    +",商品名称："+bill1.getProductName()
+                    +",订单金额："+bill1.getTotalPrice()
+                    + ",是否付款:"+bill1.getIsPayment());
+        }
+    }
 }

@@ -21,6 +21,15 @@ public class Bill {
     private Integer modifyBy;   //更新者
     private Date mdifyDate;    //更新时间
     private String providerName;  //供应商名称
+    private Provider provider;
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
 
     public String getProviderName() {
         return providerName;

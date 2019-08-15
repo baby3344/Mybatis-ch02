@@ -29,8 +29,25 @@ public interface BillMapper {
 
     /**
      * 根据id删除供应商信息
-     * @param Id
+     * @param id
      * @return
      */
     public int deleteById(@Param("id") Integer id);
+
+    /**
+     * 根据商品名称、供应商、是否付款进行查询
+     * @param productName
+     * @param
+     * @param isPayment
+     * @return
+     */
+    public List<Bill> getBillProvider(@Param("productName") String productName,@Param("providerId") Integer providerId,@Param("isPayment")Integer isPayment);
+
+
+    /**
+     * 根据指定的供应商id查询信息
+     * @param id
+     * @return
+     */
+    public List<Bill> getBillProviderList(@Param("id")Integer id);
 }

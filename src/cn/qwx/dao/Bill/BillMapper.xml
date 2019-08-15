@@ -35,4 +35,47 @@
     <delete id="deleteById">
         delete from smbms_provider where id=#{id}
     </delete>
+
+    <resultMap id="billProviderResult" type="Bill">
+        <id property="id" column="id"/>
+        <result property="billCode" column="billCode"/>
+        <result property="productName" column="productName"/>
+        <result property="totalPrice" column="totalPrice"/>
+        <result property="isPayment" column="isPayment"/>
+        <association property="provider" javaType="Provider" resultMap="providerList">
+        </association>
+    </resultMap>
+    <resultMap id="providerList" type="Provider">
+        <id property="id" column="id"/>
+        <result property="proCode" column="proCode"/>
+        <result property="proName" column="proName"/>
+        <result property="proContact" column="proContact"/>
+        <result property="proPhone" column="proPhone"/>
+    </resultMap>
+    <select id="getBillProvider" resultMap="billProviderResult" parameterType="Bill">
+        SELECT b.*,p.* FROM smbms_bill b,smbms_provider p
+        WHERE b.providerId=p.id and b.productName like CONCAT('%',#{productName},'%') and  b.providerId=#{providerId} and b.isPayment=#{isPayment}
+    </select>
+
+
+    <resultMap id="getBillProById" type="Bill">
+       <id column="id" property="id"/>
+        <result property="billCode" column="billCode"/>
+        <result property="productName" column="productName"/>
+        <result property="proPrice" column="proPrice"/>
+        <result property="isPayment" column="isPayment"/>
+        <collection property="provider" ofType="Provider" resultMap="BillProById"/>
+    </resultMap>
+    <resultMap id="BillProById" type="Provider">
+        <id property="id" column="id"/>
+        <result property="id" column="id"/>
+        <result property="proCode" column="proCode"/>
+        <result property="proName" column="proName"/>
+        <result property="proContact" column="proContact"/>
+        <result property="proPhone" column="proPhone"/>
+    </resultMap>
+    <select id="getBillProviderList" resultMap="getBillProById" parameterType="Bill">
+        SELECT b.*,p.* FROM smbms_bill b,smbms_provider p
+        WHERE b.providerId=p.id and p.id=#{id}
+    </select>
 </mapper>
