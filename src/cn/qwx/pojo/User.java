@@ -1,6 +1,4 @@
 package cn.qwx.pojo;
-
-import javax.management.relation.Role;
 import java.util.Date;
 import java.util.List;
 

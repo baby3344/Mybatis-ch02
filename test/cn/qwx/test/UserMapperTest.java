@@ -205,25 +205,24 @@ public class UserMapperTest {
         logger.debug("getUserListByRoleIdTest userList.size:"+userList.size());
         for (User user:userList) {
             logger.debug("userList====>userName:"+user.getUserName()+
-            ",Role:"+user.getRole()+
-                    "---"+user.getRole().getRoleName());
+            ",Role:"+user.getRole().getRoleCode()+ "---"+user.getRole().getRoleName());
         }
     }
 
     @Test
     //示例25
     public void getAddressListByUserIdTest(){
-         SqlSession sqlSession=null;
-         List<User> userList=new ArrayList<User>();
-         Integer userId=1;
-         try {
-             sqlSession=MyBatisUtil.createSqlSession();
-             userList=sqlSession.getMapper(UserMapper.class).getAddressListByUserId(userId);
-         }catch (Exception e){
+        SqlSession sqlSession=null;
+        List<User> userList=new ArrayList<User>();
+        Integer userId=1;
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            userList=sqlSession.getMapper(UserMapper.class).getAddressListByUserId(userId);
+        }catch (Exception e){
             e.printStackTrace();
-         }finally {
+        }finally {
             MyBatisUtil.closeSession(sqlSession);
-         }
+        }
         for (User user:userList) {
             logger.debug("userList(include)===>userCode:"+user.getUserCode()+
                     ",userName:"+user.getUserName());
@@ -240,22 +239,21 @@ public class UserMapperTest {
     @Test
     //示例27
     public void getAddressListByUserIdTest1(){
-     SqlSession sqlSession=null;
-     User user=null;
-     Integer userId=1;
-     try {
-         sqlSession=MyBatisUtil.createSqlSession();
-         sqlSession.getMapper(UserMapper.class).getAddressListByUserId(userId);
-
-     }catch (Exception e){
-      e.printStackTrace();
-     }finally {
-          MyBatisUtil.closeSession(sqlSession);
-     }
-     if(sqlSession.getMapper(UserMapper.class).getAddressListByUserId(userId)!=null){
-         logger.debug("userList(include:addresslist)===>userCode:"+
-         user.getUserCode()+",userName:"+user.getUserName()+
-                 ",<未做映射字段>userPassword:"+user.getUserPassword());
-     }
+        SqlSession sqlSession=null;
+        User user=null;
+        Integer userId=1;
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            sqlSession.getMapper(UserMapper.class).getAddressListByUserId(userId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        if(user!=null){
+            logger.debug("userList(include:addresslist)===>userCode:"+
+                    user.getUserCode()+",userName:"+user.getUserName()+
+                    ",<未做映射字段>userPassword:"+user.getUserPassword());
+        }
     }
 }

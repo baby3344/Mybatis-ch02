@@ -63,13 +63,13 @@
        delete from smbms_user where id=#{id}
     </delete>
 
-    <!--示例20
-    <resultMap id="userRoleResult" type="User">
+    <!--示例20-->
+    <!--<resultMap id="userRoleResult" type="User">
         <id property="id" column="id"/>
         <result property="userCode" column="userCode"/>
         <result property="userName" column="userName"/>
         <result property="userRole" column="userRole"/>
-        <association property="role" javaType="Role" resultMap="roleResult">
+        <association property="role" javaType="Role">
             <id property="id" column="r_id"/>
             <result property="roleCode" column="roleCode"/>
             <result property="roleName" column="roleName"/>
@@ -86,12 +86,11 @@
         <result property="userRole" column="userRole"/>
         <association property="role" javaType="Role" resultMap="roleResult"/>
     </resultMap>
-    <resultMap id="Role" type="roleResult">
+    <resultMap id="roleResult" type="Role">
             <id property="id" column="r_id"/>
             <result property="roleCode" column="roleCode"/>
             <result property="roleName" column="roleName"/>
     </resultMap>
-
     <select id="getUserListByRoleId" parameterType="Integer" resultMap="userRoleResult">
         select u.*,r.id as r_id,r.roleCode,r.roleName
         from smbms_user u,smbms_role r
@@ -99,7 +98,7 @@
     </select>
 
     <!--示例24-->
-    <resultMap id="userAddressResult" type="User">
+    <!--<resultMap id="userAddressResult" type="User">
         <id property="id" column="id"/>
         <result property="userCode" column="userCode"/>
         <result property="userName" column="userName"/>
@@ -115,5 +114,25 @@
         select u.*,a.id as a_id,a.contact,a.addressDesc,a.postCode,a.tel
         from smbms_user u,smbms_address a
         where u.id=a.userId and u.id=#{id}
-    </select>
+    </select>-->
+
+    <!--示例26-->
+    <resultMap id="userAddressResult" type="User">
+       <id property="id" column="id"/>
+       <result property="userCode" column="userCode"/>
+       <result property="userName" column="userName"/>
+       <collection property="addressList" ofType="Address" resultMap="addressResult"/>
+   </resultMap>
+   <resultMap id="addressResult" type="Address">
+       <id property="id" column="a_id"/>
+       <result property="postCode" column="postCode"/>
+       <result property="tel" column="tel"/>
+       <result property="contact" column="contact"/>
+       <result property="addressDesc" column="addressDesc"/>
+   </resultMap>
+   <select id="getAddressListByUserId" parameterType="Integer" resultMap="userAddressResult">
+       select u.*,a.id as a_id,a.contact,a.addressDesc,a.postCode,a.tel
+       from smbms_user u,smbms_address a
+       where u.id=a.userId and u.id=#{id}
+   </select>
 </mapper>

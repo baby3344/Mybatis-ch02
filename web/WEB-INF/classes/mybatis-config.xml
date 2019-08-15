@@ -6,7 +6,7 @@
 
 	<!--配置mybatis的log实现为LOG4J-->
 	<settings>
-		<!--<setting name="logImpl" value="LOG4J" />-->
+		<setting name="logImpl" value="LOG4J" />
 		<!--设置resultMap的自动映射级别为None（禁止自动匹配）-->
 		<setting name="autoMappingBehavior" value="NONE"/>
 	</settings>
@@ -34,6 +34,7 @@
 	<!--映射器-->
 	<mappers>
 		<mapper resource="cn/qwx/dao/user/UserMapper.xml"/>
+		<mapper resource="cn/qwx/dao/Bill/BillMapper.xml"/>
 	</mappers>
 
 </configuration>
