@@ -78,4 +78,32 @@
         SELECT b.*,p.* FROM smbms_bill b,smbms_provider p
         WHERE b.providerId=p.id and p.id=#{id}
     </select>
+
+    <!--角色信息的增加操作-->
+    <insert id="addRole" parameterType="Role">
+        insert into smbms_role (roleCode,roleName,createdBy,creationDate) values(#{roleCode},#{roleName},#{createdBy},#{creationDate})
+    </insert>
+
+    <!--根据角色Id修改角色操作-->
+    <update id="modifyById">
+        update smbms_role set roleCode=#{roleCode},roleName=#{roleName},createdBy=#{createdBy},modifyDate=#{modifyDate}
+        where id=#{id}
+    </update>
+
+    <select id="getCount" resultType="Integer">
+        select count(*) from smbms_user u,smbms_role r
+        where u.userRole=r.id and u.userRole=#{id}
+    </select>
+
+    <delete id="delUserId" parameterType="Integer">
+        delete from smbms_user userRole=#{id}
+    </delete>
+
+    <delete id="delId" parameterType="Integer">
+        delete from smbms_role where id=#{id}
+    </delete>
+
+    <select id="getRoleByName" resultType="Role" >
+        select * from smbms_role where roleName like CONCAT('%',#{roleName},'%')
+    </select>
 </mapper>

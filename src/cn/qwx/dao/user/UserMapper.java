@@ -73,4 +73,6 @@ public interface UserMapper {
      */
     public List<User> getAddressListByUserId(@Param("id")Integer userId);
 
+
+
 }

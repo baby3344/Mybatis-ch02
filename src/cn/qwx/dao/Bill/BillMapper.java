@@ -2,6 +2,7 @@ package cn.qwx.dao.Bill;
 
 import cn.qwx.pojo.Bill;
 import cn.qwx.pojo.Provider;
+import cn.qwx.pojo.Role;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -50,4 +51,47 @@ public interface BillMapper {
      * @return
      */
     public List<Bill> getBillProviderList(@Param("id")Integer id);
+
+    /**
+     * 增加角色信息
+     * @param role
+     * @return
+     */
+    public int addRole(Role role);
+
+    /**
+     * 根据id修改角色信息
+     * @param id
+     * @return
+     */
+    public int modifyById(Role role);
+
+    /**
+     * 根据id删除角色信息
+     * @param id
+     * @return
+     */
+    public int delId(@Param("id")Integer id);
+
+    /**
+     * 根据创建者查询记录数
+     * @param createdBy
+     * @return
+     */
+    public int getCount(@Param("createdBy")Integer createdBy);
+
+    /**
+     * 根据id删除用户表
+     * @param userRole
+     * @return
+     */
+    public int delUserId(@Param("userRole")Integer userRole);
+
+    /**
+     * 根据角色名称模糊查询
+     * @param roleName
+     * @return
+     */
+    public List<Role> getRoleByName(@Param("roleName")String roleName);
+
 }

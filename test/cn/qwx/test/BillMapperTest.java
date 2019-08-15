@@ -3,11 +3,13 @@ package cn.qwx.test;
 import cn.qwx.dao.Bill.BillMapper;
 import cn.qwx.pojo.Bill;
 import cn.qwx.pojo.Provider;
+import cn.qwx.pojo.Role;
 import cn.qwx.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -162,4 +164,93 @@ public class BillMapperTest {
                     + ",是否付款:"+bill1.getIsPayment());
         }
     }
+
+    /**
+     * 简答题增加操作
+     */
+    @Test
+    public void TestAddRole(){
+          SqlSession sqlSession=null;
+          Role role=new Role();
+          role.setRoleCode("SMBMS_ADMIN");
+          role.setRoleName("普通员工");
+          role.setCreatedBy(1);
+          int count=0;
+          role.setCreationDate(new Date());
+          try{
+              sqlSession=MyBatisUtil.createSqlSession();
+              count=sqlSession.getMapper(BillMapper.class).addRole(role);
+              sqlSession.commit();
+          }catch (Exception e){
+              e.printStackTrace();
+              sqlSession.rollback();
+          }finally {
+              MyBatisUtil.closeSession(sqlSession);
+          }
+         logger.debug("ShortAddTest=====>"+count);
+    }
+
+    //根据id修改角色信息
+    @Test
+   public void TestModifyById(){
+        SqlSession sqlSession=null;
+        Role role=new Role();
+        role.setId(4);
+        role.setRoleCode("SMBMS_ADMIN");
+        role.setRoleName("经理");
+        role.setCreatedBy(1);
+        int count=0;
+        role.setCreationDate(new Date());
+        try{
+            sqlSession=MyBatisUtil.createSqlSession();
+            count=sqlSession.getMapper(BillMapper.class).modifyById(role);
+            sqlSession.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("ShortAddTest=====>"+count);
+  }
+
+  @Test
+  public void test4(){
+        SqlSession sqlSession=null;
+        Integer id=4;
+        try{
+            sqlSession=MyBatisUtil.createSqlSession();
+            int count=sqlSession.getMapper(BillMapper.class).getCount(id);
+            if(count>0){
+                int del=sqlSession.getMapper(BillMapper.class).delUserId(id);
+                if(del>0){
+                    int num=sqlSession.getMapper(BillMapper.class).delId(id);
+                }
+            }
+            sqlSession.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+    }
+
+    @Test
+    public void testGetRoleByName(){
+        SqlSession sqlSession=null;
+        List<Role> roleList=new ArrayList<Role>();
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            roleList=sqlSession.getMapper(BillMapper.class).getRoleByName("经理");
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        for (Role role:roleList) {
+            logger.debug("模糊查询:=====>"+role.getRoleCode()+"and"+role.getModifyDate());
+        }
+    }
+
 }
