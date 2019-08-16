@@ -237,19 +237,20 @@ public class BillMapperTest {
     }
 
     @Test
-    public void testGetRoleByName(){
+    public void Test5(){
         SqlSession sqlSession=null;
         List<Role> roleList=new ArrayList<Role>();
+        String name="经理";
         try {
             sqlSession=MyBatisUtil.createSqlSession();
-            roleList=sqlSession.getMapper(BillMapper.class).getRoleByName("经理");
+            roleList=sqlSession.getMapper(BillMapper.class).getRoleByName(name);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             MyBatisUtil.closeSession(sqlSession);
         }
-        for (Role role:roleList) {
-            logger.debug("模糊查询:=====>"+role.getRoleCode()+"and"+role.getModifyDate());
+        for (Role role: roleList) {
+            logger.debug("简答:=====>"+role.getRoleCode());
         }
     }
 

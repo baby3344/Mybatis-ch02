@@ -103,7 +103,7 @@
         delete from smbms_role where id=#{id}
     </delete>
 
-    <select id="getRoleByName" resultType="Role" >
+    <select id="getRoleByName" resultType="Role" parameterType="String">
         select * from smbms_role where roleName like CONCAT('%',#{roleName},'%')
     </select>
 </mapper>

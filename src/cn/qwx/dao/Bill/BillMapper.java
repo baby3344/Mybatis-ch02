@@ -92,6 +92,6 @@ public interface BillMapper {
      * @param roleName
      * @return
      */
-    public List<Role> getRoleByName(@Param("roleName")String roleName);
+    public List<Role> getRoleByName(@Param("roleName") String roleName);
 
 }
