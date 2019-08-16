@@ -74,5 +74,20 @@ public interface UserMapper {
     public List<User> getAddressListByUserId(@Param("id")Integer userId);
 
 
+    /**
+     * 查询用户列表 if条件
+     * @param userName
+     * @param userRole
+     * @return
+     */
+    public List<User> getUserList2(@Param("userName")String userName,@Param("userRole")Integer userRole);
+
+    /**
+     * 查询用户列表 where
+     * @param userName
+     * @param userRole
+     * @return
+     */
+    public List<User> getUserList3(@Param("userName")String userName,@Param("userRole")Integer userRole);
 
 }

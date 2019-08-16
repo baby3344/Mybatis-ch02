@@ -135,4 +135,29 @@
        from smbms_user u,smbms_address a
        where u.id=a.userId and u.id=#{id}
    </select>
+
+    <!--根据用户名称查询用户列表（ch03示例2）-->
+    <select id="getUserList2" resultMap="userList" >
+        select u.*,r.roleName from smbms_user u,smbms_role r
+        where u.userRole=r.id
+        <if test="userRole!=null">
+            and u.userRole=#{userRole}
+        </if>
+        <if test="userName!=null">
+            and userName like CONCAT ('%',#{userName},'%')
+        </if>
+    </select>
+
+    <!--(ch03)示例where-->
+    <select id="getUserList3" resultType="User">
+        select * from smbms_user
+        <where>
+        <if test="userName!=null and userName!=''">
+            userName like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="userRole!=null">
+            and userRole=#{userRole}
+        </if>
+        </where>
+    </select>
 </mapper>

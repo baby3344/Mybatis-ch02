@@ -13,7 +13,6 @@ import java.util.*;
 
 public class UserMapperTest {
     private  static Logger logger=Logger.getLogger(UserMapperTest.class);
-
     @Test
     //示例4
     public void testGetUserList(){
@@ -254,6 +253,59 @@ public class UserMapperTest {
             logger.debug("userList(include:addresslist)===>userCode:"+
                     user.getUserCode()+",userName:"+user.getUserName()+
                     ",<未做映射字段>userPassword:"+user.getUserPassword());
+        }
+    }
+
+    //（）示例3
+    @Test
+    public void testGetUserListCh03(){
+        SqlSession sqlSession=null;
+        List<User> userList=new ArrayList<User>();
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            String userName="孙";
+            Integer role=null;
+            userList=sqlSession.getMapper(UserMapper.class).getUserList2(userName,role);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+             MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("userlist.size---->"+userList.size());
+        for (User user:userList){
+            logger.debug("testUserList2======>id:"+user.getId()+
+            " and userCode:"+user.getUserCode()+
+                    " and userName:"+user.getUserName()+
+                    " and userRole:"+user.getRole()+"" +
+                    " and userRoleName:"+user.getUserRoleName()+
+                    " and phone:"+user.getPhone()+
+                    " and gender:"+user.getGender());
+        }
+    }
+
+    @Test
+    public void testGetUserListCh03Where(){
+        SqlSession sqlSession=null;
+        List<User> userList=new ArrayList<User>();
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            String userName="";
+            Integer role=null;
+            userList=sqlSession.getMapper(UserMapper.class).getUserList3(userName,role);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("userlist.size---->"+userList.size());
+        for (User user:userList){
+            logger.debug("testUserList2======>id:"+user.getId()+
+                    " and userCode:"+user.getUserCode()+
+                    " and userName:"+user.getUserName()+
+                    " and userRole:"+user.getRole()+"" +
+                    " and userRoleName:"+user.getUserRoleName()+
+                    " and phone:"+user.getPhone()+
+                    " and gender:"+user.getGender());
         }
     }
 }
