@@ -431,9 +431,64 @@ public class UserMapperTest {
         SqlSession sqlSession=null;
         List<User> userList=new ArrayList<User>();
         List<Integer> roleList=new ArrayList<Integer>();
+        roleList.add(2);
+        roleList.add(3);
         try {
             sqlSession=MyBatisUtil.createSqlSession();
             userList=sqlSession.getMapper(UserMapper.class).getUserByRoleId_foreach_list(roleList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("userList.size:=========>"+userList.size());
+        for (User user:userList) {
+            logger.debug("user====>id:"+user.getId()+
+                    ",userCode:"+user.getUserCode()+
+                    ",userName:"+user.getUserName()+
+                    ",userRole:"+user.getRole());
+        }
+    }
+
+    @Test
+    public void getUserByRoleId_foreach_map(){
+        SqlSession sqlSession=null;
+        List<User> userList=new ArrayList<User>();
+        Map<String,Object> conditionMap=new HashMap<String,Object>();
+        List<Integer> roleList=new ArrayList<Integer>();
+        roleList.add(2);
+        roleList.add(3);
+        conditionMap.put("gender",1);
+        conditionMap.put("roleIds",roleList);
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            userList=sqlSession.getMapper(UserMapper.class).getUserByRoleId_foreach_map(conditionMap);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("userList.size:=========>"+userList.size());
+        for (User user:userList) {
+            logger.debug("user====>id:"+user.getId()+
+                    ",userCode:"+user.getUserCode()+
+                    ",userName:"+user.getUserName()+
+                    ",userRole:"+user.getRole());
+        }
+    }
+
+    @Test//将单参数封装成map
+    public void getUserByRoleId_foreach_map1(){
+        SqlSession sqlSession=null;
+        List<User> userList=new ArrayList<User>();
+        Map<String,Object> roleMap=new HashMap<String,Object>();
+        List<Integer> roleList=new ArrayList<Integer>();
+        roleList.add(2);
+        roleList.add(3);
+        roleMap.put("rKey",roleList);
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            userList=sqlSession.getMapper(UserMapper.class).getUserByRoleId_foreach_map1(roleMap);
         }catch (Exception e){
             e.printStackTrace();
         }finally {

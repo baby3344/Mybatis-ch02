@@ -126,4 +126,18 @@ public interface UserMapper {
      */
     public List<User> getUserByRoleId_foreach_list(List<Integer> roleList);
 
+
+    /**
+     * 根据用户角色列表，获取该角色列表下用户信息列表_foreach_map
+     * @param conditionMap
+     * @return
+     */
+    public List<User> getUserByRoleId_foreach_map(Map<String,Object>conditionMap);
+
+    /**
+     * 根据用户角色列表，获取该角色列表下用户信息列表_foreach_map1（单参数封装成map）
+     * @param roleMap
+     * @return
+     */
+    public List<User> getUserByRoleId_foreach_map1(Map<String,Object>roleMap);
 }
