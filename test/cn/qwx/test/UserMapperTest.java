@@ -334,4 +334,38 @@ public class UserMapperTest {
                     " and gender:"+user.getGender());
         }
     }
+
+    @Test
+    //修改 if+set
+    public void testModify1(){
+        logger.debug("testModify1:===============");
+        SqlSession sqlSession=null;
+        int count=0;
+        try{
+            User user=new User();
+            user.setId(17);
+            user.setUserCode("testModify");
+            user.setUserName("测试用户修改");
+            user.setUserPassword("0000000");
+            Date birthday=new SimpleDateFormat("yyyy-MM-dd").parse("1980-10-10");
+            user.setBirthday(birthday);
+            user.setAddress("地址测试修改");
+            user.setGender(2);
+            user.setPhone("13600002222");
+            user.setUserRole(2);
+            user.setCreatedBy(1);
+            user.setCreationDate(new Date());
+            sqlSession=MyBatisUtil.createSqlSession();
+            count=sqlSession.getMapper(UserMapper.class).modify1(user);
+            //模拟回滚
+            sqlSession.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            sqlSession.rollback();
+            count=0;
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("testModify1 count:"+count);
+    }
 }

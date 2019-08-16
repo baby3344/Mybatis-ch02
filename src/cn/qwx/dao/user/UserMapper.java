@@ -98,4 +98,12 @@ public interface UserMapper {
      */
     public List<User> getUserList4(@Param("userName")String userName,@Param("userRole")Integer userRole);
 
+    /**
+     * 修改 if+set
+     * @param user
+     * @return
+     */
+    public int modify1(User user);
+
+
 }
