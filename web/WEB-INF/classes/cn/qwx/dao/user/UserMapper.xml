@@ -160,4 +160,17 @@
         </if>
         </where>
     </select>
+
+    <!--(ch03)示例if+trim+-->
+    <select id="getUserList4" resultType="User">
+        select * from smbms_user
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="userName!=null and userName!=''">
+                userName like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="userRole!=null">
+                and userRole=#{userRole}
+            </if>
+        </trim>
+    </select>
 </mapper>

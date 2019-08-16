@@ -90,4 +90,12 @@ public interface UserMapper {
      */
     public List<User> getUserList3(@Param("userName")String userName,@Param("userRole")Integer userRole);
 
+    /**
+     * 查询用户列表 if+trim
+     * @param userName
+     * @param userRole
+     * @return
+     */
+    public List<User> getUserList4(@Param("userName")String userName,@Param("userRole")Integer userRole);
+
 }

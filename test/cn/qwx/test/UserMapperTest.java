@@ -308,4 +308,30 @@ public class UserMapperTest {
                     " and gender:"+user.getGender());
         }
     }
+
+    @Test
+    public void testGetUserListCh03ifTrim(){
+        SqlSession sqlSession=null;
+        List<User> userList=new ArrayList<User>();
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            String userName="";
+            Integer role=1;
+            userList=sqlSession.getMapper(UserMapper.class).getUserList4(userName,role);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("userlist.size---->"+userList.size());
+        for (User user:userList){
+            logger.debug("testUserList2======>id:"+user.getId()+
+                    " and userCode:"+user.getUserCode()+
+                    " and userName:"+user.getUserName()+
+                    " and userRole:"+user.getRole()+"" +
+                    " and userRoleName:"+user.getUserRoleName()+
+                    " and phone:"+user.getPhone()+
+                    " and gender:"+user.getGender());
+        }
+    }
 }
