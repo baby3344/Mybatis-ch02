@@ -427,7 +427,7 @@ public class UserMapperTest {
 
 
     @Test
-    public void getUserByRoleId_foreach_list(){
+    public void testgetUserByRoleId_foreach_list(){
         SqlSession sqlSession=null;
         List<User> userList=new ArrayList<User>();
         List<Integer> roleList=new ArrayList<Integer>();
@@ -451,7 +451,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void getUserByRoleId_foreach_map(){
+    public void testgetUserByRoleId_foreach_map(){
         SqlSession sqlSession=null;
         List<User> userList=new ArrayList<User>();
         Map<String,Object> conditionMap=new HashMap<String,Object>();
@@ -500,6 +500,60 @@ public class UserMapperTest {
                     ",userCode:"+user.getUserCode()+
                     ",userName:"+user.getUserName()+
                     ",userRole:"+user.getRole());
+        }
+    }
+
+    @Test
+    public void testGetUserList_choose(){
+        SqlSession sqlSession=null;
+        List<User> userList=new ArrayList<User>();
+        String userName="";
+        Integer roleId=null;
+        String userCode="";
+        try {
+            Date creationDate=new SimpleDateFormat("yyyy-MM-dd").parse("2016-01-01");
+            sqlSession=MyBatisUtil.createSqlSession();
+            userList=sqlSession.getMapper(UserMapper.class).getUserList_choose(userName,roleId,userCode,creationDate);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("userList.size:=========>"+userList.size());
+        for (User user:userList) {
+            logger.debug("user====>id:"+user.getId()+
+                    ",userCode:"+user.getUserCode()+
+                    ",userName:"+user.getUserName()+
+                    ",userRole:"+user.getRole());
+        }
+    }
+
+
+    @Test
+    public void testGetUserList4(){
+       SqlSession sqlSession=null;
+       List<User> userList=new ArrayList<User>();
+       try {
+           sqlSession=MyBatisUtil.createSqlSession();
+           String userName="";
+           Integer roleId=null;
+           Integer pageSize=5;
+           Integer currentPageNo=0;
+           userList=sqlSession.getMapper(UserMapper.class).getUserList5(userName,roleId,currentPageNo,pageSize);
+       }catch (Exception e){
+           e.printStackTrace();
+       }finally {
+           MyBatisUtil.closeSession(sqlSession);
+       }
+       logger.debug("userList4.size----->"+userList.size());
+        for (User user:userList) {
+            logger.debug("testGetUserList4====>id:"+user.getId()+
+            " and userCode:"+user.getUserCode()+
+            " and userRole:"+user.getUserRole()+
+            " and userRoleName:"+user.getUserRoleName()+
+            " and phone:"+user.getPhone()+
+            " and gender:"+user.getGender()+
+            " and creationDate:"+new SimpleDateFormat("yyyy_MMM-dd").format(user.getCreationDate()));
         }
     }
 }

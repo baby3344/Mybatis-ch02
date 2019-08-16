@@ -4,6 +4,7 @@ import cn.qwx.pojo.Address;
 import cn.qwx.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -140,4 +141,36 @@ public interface UserMapper {
      * @return
      */
     public List<User> getUserByRoleId_foreach_map1(Map<String,Object>roleMap);
+
+    /**
+     * 查询用户列表
+     * @param userName
+     * @param userRole
+     * @param userCode
+     * @param creationDate
+     * @return
+     */
+    public List<User> getUserList_choose(@Param("userName")String userName,
+                                         @Param("userRole") Integer userRole,
+                                         @Param("userCode")String userCode,
+                                         @Param("creationDate")Date creationDate);
+
+    /**
+     * 查询用户记录表数
+     * @return
+     */
+    public int count();
+
+    /**
+     * 查询用户列表（分页显示）
+     * @param userName
+     * @param userRole
+     * @param currentPageNo
+     * @param pageSize
+     * @return
+     */
+    public List<User> getUserList5(@Param("userName")String userName,
+                                  @Param("userRole")Integer userRole,
+                                  @Param("from")Integer currentPageNo,
+                                  @Param("pageSize")Integer pageSize);
 }

@@ -247,4 +247,40 @@
             #{roleMap}
         </foreach>
     </select>
+
+    <!--查询用户列表(choose)-->
+    <select id="getUserList_choose" resultType="User">
+        select * from smbms_user where 1=1
+        <choose>
+            <when test="userName!=null and userName!=''">
+                and  userName like CONCAT('%',#{userName},'%')
+            </when>
+            <when test="userCode!=null and userCode!=''">
+                and  userCode like CONCAT('%',#{userCode},'%')
+            </when>
+            <when test="userRole!=null">
+                and  userRole=#{userRole}
+            </when>
+            <otherwise>
+                and YEAR(creationDate)=YEAR(#{creationDate})
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--查询总记录数-->
+    <select id="count" resultType="Integer">
+        select count(*) from smbms_user
+    </select>
+
+    <!--查询用户列表（分页显示）-->
+    <select id="getUserList5" resultMap="userList">
+        select u.*,r.roleName from smbms_user u,smbms_role r where u.userRole=r.id
+        <if test="userRole!=null">
+            and u.userRole=#{userRole}
+        </if>
+        <if test="userName!=null and userName!=''">
+            and userName like CONCAT('%',#{userName},'%')
+        </if>
+        order by creationDate DESC limit #{from},#{pageSize}
+    </select>
 </mapper>
