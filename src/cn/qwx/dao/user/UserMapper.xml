@@ -221,4 +221,13 @@
         <result property="userName" column="userName"/>
         <result property="userRole" column="userRole"/>
     </resultMap>
+
+    <!--根据用户角色列表，获取该角色列表下用户信息列表_foreach_list-->
+    <select id="getUserByRoleId_foreach_list" resultMap="userMapByRole">
+        select * from smbms_user where userRole in
+        <foreach collection="list" item="roleList"
+                 open="(" separator="," close=")">
+            #{roleIds}
+        </foreach>
+    </select>
 </mapper>

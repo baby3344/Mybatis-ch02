@@ -118,4 +118,12 @@ public interface UserMapper {
      * @return
      */
     public List<User> getUserByRoleId_foreach_array(Integer[] roleIds);
+
+    /**
+     * 根据用户角色列表，获取该角色列表下用户信息列表_foreach_list
+     * @param roleList
+     * @return
+     */
+    public List<User> getUserByRoleId_foreach_list(List<Integer> roleList);
+
 }
