@@ -191,6 +191,20 @@
         where id=#{id}
     </update>
 
-    
+    <!--(ch03)修改用户if+trim改造修改操作-->
+    <update id="modify2" parameterType="User">
+        update smbms_user
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="userCode!=null">userCode=#{userCode},</if>
+            <if test="userName!=null"> userName=#{userName},</if>
+            <if test="userPassword!=null"> userPassword=#{userPassword},</if>
+            <if test="gender!=null"> gender=#{gender},</if>
+            <if test="phone!=null">phone=#{phone},</if>
+            <if test="address!=null"> address=#{address},</if>
+            <if test="userRole!=null">userRole=#{userRole},</if>
+            <if test="birthday!=null"> birthday=#{birthday}</if>
+            <if test="modifyDate!=null"> modifyDate=#{modifyDate},</if>
+        </trim>
+    </update>
 
 </mapper>

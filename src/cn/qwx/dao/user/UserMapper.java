@@ -105,5 +105,12 @@ public interface UserMapper {
      */
     public int modify1(User user);
 
+    /**
+     * 修改 if+trim
+     * @param user
+     * @return
+     */
+    public int modify2(User user);
+
 
 }
