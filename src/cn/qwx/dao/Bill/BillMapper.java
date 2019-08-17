@@ -94,4 +94,13 @@ public interface BillMapper {
      */
     public List<Role> getRoleByName(@Param("roleName") String roleName);
 
+    /**
+     * 查询订单列表，使用SQL—if查询
+     * @param productName
+     * @param providerId
+     * @param isPayment
+     * @return
+     */
+    public List<Bill> getBillByList(@Param("productName")String productName,@Param("providerId")Integer providerId,@Param("isPayment")Integer isPayment);
+
 }

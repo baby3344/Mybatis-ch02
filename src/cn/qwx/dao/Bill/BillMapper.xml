@@ -106,4 +106,21 @@
     <select id="getRoleByName" resultType="Role" parameterType="String">
         select * from smbms_role where roleName like CONCAT('%',#{roleName},'%')
     </select>
+
+   <!--使用动态SQL—if改造订单表查询操作-->
+    <select id="getBillByList"  resultMap="billProviderResult">
+        SELECT b.*,p.* FROM smbms_bill b,smbms_provider p
+        <trim prefix="where b.providerId=p.id">
+            <if test="productName!=null">
+                and b.productName like CONCAT('%',#{productName},'%')
+            </if>
+            <if test="providerId!=null">
+                and  b.providerId=#{providerId}
+            </if>
+            <if test="isPayment!=null">
+                and b.isPayment=#{isPayment}
+            </if>
+        </trim>
+    </select>
+
 </mapper>

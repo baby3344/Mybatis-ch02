@@ -256,8 +256,8 @@ public class UserMapperTest {
         }
     }
 
-    //（）示例3
-    @Test
+
+    @Test//示例3
     public void testGetUserListCh03(){
         SqlSession sqlSession=null;
         List<User> userList=new ArrayList<User>();
@@ -529,7 +529,7 @@ public class UserMapperTest {
     }
 
 
-    @Test
+    @Test//分页显示
     public void testGetUserList4(){
        SqlSession sqlSession=null;
        List<User> userList=new ArrayList<User>();
