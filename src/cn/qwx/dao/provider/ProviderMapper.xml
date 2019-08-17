@@ -10,5 +10,16 @@
         select * from smbms_provider
     </select>
 
-    
+    <!--(ch03)SQL——if+where查询供应商表-->
+    <select id="getProListByCodeName" resultType="Provider">
+        select * from smbms_provider
+        <where>
+            <if test="proCode!=null">
+                and proCode like CONCAT('%',#{proCode},'%')
+            </if>
+            <if test="proName!=null">
+                and proName like CONCAT('%',#{proName},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
