@@ -123,4 +123,11 @@
         </trim>
     </select>
 
+    <!--使用动态SQL-foreach获取供应商表下的订单列表-->
+    <select id="getBilList_array" resultType="Bill">
+        select * from smbms_bill where providerId in
+        <foreach collection="array" item="providerId" open="(" separator="," close=")">
+            #{providerId}
+        </foreach>
+    </select>
 </mapper>

@@ -275,5 +275,22 @@ public class BillMapperTest {
         }
     }
 
-
+    @Test//(ch03)上机练习5
+    public void TestgetBilList_array(){
+      SqlSession sqlSession=null;
+      List<Bill> billList=new ArrayList<Bill>();
+      Integer[] providerId={13,14};
+      try {
+          sqlSession=MyBatisUtil.createSqlSession();
+          billList=sqlSession.getMapper(BillMapper.class).getBilList_array(providerId);
+      }catch (Exception e){
+          e.printStackTrace();
+      }finally {
+          MyBatisUtil.closeSession(sqlSession);
+      }
+      logger.debug("billList.size:"+billList.size());
+        for (Bill bill:billList) {
+            logger.debug("bill=====》"+bill.getProductName());
+        }
+    }
 }
