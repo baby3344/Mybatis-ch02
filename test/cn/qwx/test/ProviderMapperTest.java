@@ -75,7 +75,7 @@ public class ProviderMapperTest {
         }
     }
 
-    @Test //上机练习二
+    @Test //(ch03)上机练习二
     public void Ch03Test2(){
         SqlSession sqlSession=null;
         List<Provider> list=new ArrayList<Provider>();
@@ -93,5 +93,25 @@ public class ProviderMapperTest {
                     "，联系人：" +provider.getProContact()+ "，联系电话："+provider.getProPhone()+
                     "，传真："+provider.getProFax()+"，创建时间："+provider.getCreationDate());
         }
+    }
+
+    @Test//(ch03)上机练习三
+    public void testupdateById(){
+        SqlSession sqlSession=null;
+        int count=0;
+        Provider provider=new Provider();
+        provider.setId(15);
+        provider.setProPhone("0735-666666");
+        try {
+           sqlSession=MyBatisUtil.createSqlSession();
+           count=sqlSession.getMapper(ProviderMapper.class).updateById(provider);
+           sqlSession.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+           MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("受影响的行数为："+count);
     }
 }
