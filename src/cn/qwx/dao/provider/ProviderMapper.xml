@@ -39,4 +39,20 @@
         </set>
         where id=#{id}
     </update>
+
+    <!--使用if+trim实现对供应商表的修改-->
+    <update id="updateById" parameterType="Provider">
+        update smbms_provider
+        <trim prefix="set" suffixOverrides="," suffix="id=#{id}">
+            <if test="proCode!=null">proCode=#{proCode},</if>
+            <if test="proName!=null">proName=#{proName},</if>
+            <if test="proDesc!=null">proDesc=#{proDesc},</if>
+            <if test="proContact!=null">proContact=#{proContact},</if>
+            <if test="proPhone!=null">proPhone=#{proPhone},</if>
+            <if test="proAddress!=null">proAddress=#{proAddress},</if>
+            <if test="proFax!=null">proFax=#{proFax},</if>
+            <if test="modifyBy!=null">modifyBy=#{modifyBy},</if>
+            <if test="modifyDate!=null">modifyDate=#{modifyDate},</if>
+        </trim>
+    </update>
 </mapper>
