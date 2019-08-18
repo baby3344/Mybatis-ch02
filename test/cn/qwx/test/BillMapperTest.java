@@ -335,4 +335,25 @@ public class BillMapperTest {
             logger.debug("bill=====》"+bill.getProductName());
         }
     }
+
+    @Test//ch03上机练习8 分页查询订单列表
+    public void getBillListPage(){
+        SqlSession sqlSession=null;
+        List<Bill> billList=new ArrayList<Bill>();
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            billList=sqlSession.getMapper(BillMapper.class).getBillListPage(0,5);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        for (Bill bill1:billList) {
+            logger.debug("test1====>订单编码:"+bill1.getBillCode()+",商品名称:"+bill1.getProductName()+
+                    ",供应商名称："+bill1.getProvider().getProName()+
+                    ",供应商id："+bill1.getProvider().getId()
+                    +",账单金额："+bill1.getTotalPrice()
+                    + ",是否付款:"+bill1.getIsPayment()+",创建时间："+bill1.getCreationDate());
+        }
+    }
 }

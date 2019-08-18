@@ -146,4 +146,9 @@
             #{proId}
         </foreach>
     </select>
+
+    <!--分页查询订单列表-->
+    <select id="getBillListPage" resultMap="billProviderResult">
+        select * from smbms_bill order by creationDate DESC limit #{from},#{pageSize}
+    </select>
 </mapper>

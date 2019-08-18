@@ -125,4 +125,12 @@ public interface BillMapper {
      */
     public List<Bill> getBilList_map(Map<String,Object>map);
 
+    /**
+     * 分页查询订单列表
+     * @param from
+     * @param pageSize
+     * @return
+     */
+    public List<Bill> getBillListPage(@Param("from")Integer from,@Param("pageSize")Integer pageSize);
+
 }

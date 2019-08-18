@@ -48,4 +48,12 @@ public interface ProviderMapper {
      */
     public List<Provider> getLikeList(@Param("proCode")String proCode, @Param("proName")String proName,
                                       @Param("proContact")String proContact, @Param("creationDate")Date creationDate);
+
+    /**
+     * 分页查询供应商列表
+     * @param from
+     * @param pageSize
+     * @return
+     */
+    public List<Provider> getProListPage(@Param("from")Integer from,@Param("pageSize")Integer pageSize);
 }

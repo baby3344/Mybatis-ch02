@@ -74,4 +74,9 @@
             </otherwise>
         </choose>
     </select>
+
+    <!--分页查询供应商列表-->
+    <select id="getProListPage" resultType="Provider">
+        select * from smbms_provider order by creationDate DESC limit #{from},#{pageSize}
+    </select>
 </mapper>
