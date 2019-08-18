@@ -9,9 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class BillMapperTest {
     private  static Logger logger=Logger.getLogger(BillMapperTest.class);
@@ -304,6 +302,29 @@ public class BillMapperTest {
         try {
             sqlSession=MyBatisUtil.createSqlSession();
             billList=sqlSession.getMapper(BillMapper.class).getBilList_list(Ilist);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("billList.size:"+billList.size());
+        for (Bill bill:billList) {
+            logger.debug("bill=====》"+bill.getProductName());
+        }
+    }
+
+    @Test//(ch03)上机练习6 map入参
+    public void TestGetBilList_map(){
+        SqlSession sqlSession=null;
+        List<Bill> billList=new ArrayList<Bill>();
+        List<Integer> Ilist=new ArrayList<Integer>();
+        Ilist.add(13);
+        Ilist.add(14);
+        Map<String,Object> map=new HashMap<String, Object>();
+        map.put("keymap",Ilist);
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            billList=sqlSession.getMapper(BillMapper.class).getBilList_map(map);
         }catch (Exception e){
             e.printStackTrace();
         }finally {

@@ -6,6 +6,7 @@ import cn.qwx.pojo.Role;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BillMapper {
     /**
@@ -116,5 +117,12 @@ public interface BillMapper {
      * @return
      */
     public List<Bill> getBilList_list(List<Integer> list);
+
+    /**
+     * 使用动态SQL-foreach_map获取供应商表下的订单列表
+     * @param map
+     * @return
+     */
+    public List<Bill> getBilList_map(Map<String,Object>map);
 
 }
