@@ -41,7 +41,7 @@
     </update>
 
     <!--使用if+trim实现对供应商表的修改-->
-    <update id="updateById" parameterType="Provider">
+    <update id="updateById1" parameterType="Provider">
         update smbms_provider
         <trim prefix="set" suffixOverrides="," suffix="id=#{id}">
             <if test="proCode!=null">proCode=#{proCode},</if>

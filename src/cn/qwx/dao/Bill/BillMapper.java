@@ -104,10 +104,17 @@ public interface BillMapper {
     public List<Bill> getBillByList(@Param("productName")String productName,@Param("providerId")Integer providerId,@Param("isPayment")Integer isPayment);
 
     /**
-     * 使用动态SQL-foreach获取供应商表下的订单列表
+     * 使用动态SQL-foreach_array获取供应商表下的订单列表
      * @param array
      * @return
      */
     public List<Bill> getBilList_array(Integer[] array);
+
+    /**
+     * 使用动态SQL-foreach_list获取供应商表下的订单列表
+     * @param list
+     * @return
+     */
+    public List<Bill> getBilList_list(List<Integer> list);
 
 }

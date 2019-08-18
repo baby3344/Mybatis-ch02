@@ -275,7 +275,7 @@ public class BillMapperTest {
         }
     }
 
-    @Test//(ch03)上机练习5
+    @Test//(ch03)上机练习5 数组入参
     public void TestgetBilList_array(){
       SqlSession sqlSession=null;
       List<Bill> billList=new ArrayList<Bill>();
@@ -289,6 +289,27 @@ public class BillMapperTest {
           MyBatisUtil.closeSession(sqlSession);
       }
       logger.debug("billList.size:"+billList.size());
+        for (Bill bill:billList) {
+            logger.debug("bill=====》"+bill.getProductName());
+        }
+    }
+
+    @Test//(ch03)上机练习5 集合入参
+    public void TestgetBilList_list(){
+        SqlSession sqlSession=null;
+        List<Bill> billList=new ArrayList<Bill>();
+        List<Integer> Ilist=new ArrayList<Integer>();
+        Ilist.add(13);
+        Ilist.add(14);
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            billList=sqlSession.getMapper(BillMapper.class).getBilList_list(Ilist);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("billList.size:"+billList.size());
         for (Bill bill:billList) {
             logger.debug("bill=====》"+bill.getProductName());
         }

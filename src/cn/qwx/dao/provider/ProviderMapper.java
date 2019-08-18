@@ -31,4 +31,10 @@ public interface ProviderMapper {
      * @return
      */
     public int updateById(Provider provider);
+
+    /**
+     * 使用动态SQL if+trim实现供应商表的修改
+     * @return
+     */
+    public int updateById1(Provider provider);
 }

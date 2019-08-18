@@ -114,4 +114,24 @@ public class ProviderMapperTest {
         }
         logger.debug("受影响的行数为："+count);
     }
+
+    @Test//(ch03)上机练习四
+    public void testupdateById1(){
+        SqlSession sqlSession=null;
+        int count=0;
+        Provider provider=new Provider();
+        provider.setId(15);
+        provider.setProPhone("0735-666666");
+        try {
+            sqlSession=MyBatisUtil.createSqlSession();
+            count=sqlSession.getMapper(ProviderMapper.class).updateById1(provider);
+            sqlSession.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        logger.debug("受影响的行数为："+count);
+    }
 }
