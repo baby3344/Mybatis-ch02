@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProviderMapperTest {
@@ -133,5 +135,25 @@ public class ProviderMapperTest {
             MyBatisUtil.closeSession(sqlSession);
         }
         logger.debug("受影响的行数为："+count);
+    }
+
+    @Test //（ch03）上机7
+    public void TestgetLikeList(){
+        SqlSession sqlSession=null;
+        List<Provider> proList=new ArrayList<Provider>();
+        try {
+            Date creationDate=new SimpleDateFormat("yyyy").parse("2016");
+            sqlSession=MyBatisUtil.createSqlSession();
+            proList=sqlSession.getMapper(ProviderMapper.class).getLikeList("001",null,null,creationDate);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            MyBatisUtil.closeSession(sqlSession);
+        }
+        for (Provider provider:proList) {
+            logger.debug("供应商id："+provider.getId()+"，供应商编码：:"+provider.getProCode()+"，供应商名称:"+provider.getProName()+
+                    "，联系人：" +provider.getProContact()+ "，联系电话："+provider.getProPhone()+
+                    "，传真："+provider.getProFax()+"，创建时间："+provider.getCreationDate());
+        }
     }
 }

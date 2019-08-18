@@ -55,4 +55,23 @@
             <if test="modifyDate!=null">modifyDate=#{modifyDate},</if>
         </trim>
     </update>
+
+    <!--使用动态SQL-choose查询动态供应商列表-->
+    <select id="getLikeList" resultType="Provider">
+        select * from smbms_provider where 1=1
+        <choose>
+            <when test="proCode!=null">
+                and proCode like CONCAT('%',#{proCode},'%')
+            </when>
+            <when test="proName!=null">
+                and proName like CONCAT('%',#{proName},'%')
+            </when>
+            <when test="proContact!=null">
+                and proContact like CONCAT('%',#{proContact},'%')
+            </when>
+            <otherwise>
+                and creationDate like CONCAT('%',#{creationDate},'%');
+            </otherwise>
+        </choose>
+    </select>
 </mapper>

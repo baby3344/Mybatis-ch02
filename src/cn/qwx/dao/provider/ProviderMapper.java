@@ -3,6 +3,7 @@ package cn.qwx.dao.provider;
 import cn.qwx.pojo.Provider;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ProviderMapper {
@@ -37,4 +38,14 @@ public interface ProviderMapper {
      * @return
      */
     public int updateById1(Provider provider);
+
+    /**
+     * 使用动态SQL-choose查询供应商列表
+     * @param proCode
+     * @param proName
+     * @param proContact
+     * @return
+     */
+    public List<Provider> getLikeList(@Param("proCode")String proCode, @Param("proName")String proName,
+                                      @Param("proContact")String proContact, @Param("creationDate")Date creationDate);
 }
