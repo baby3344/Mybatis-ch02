@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org//dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.qwx.dao.role.RoleMapper">
+    <!--使用if+set 根据角色id修改角色信息-->
+    <update id="UpdateById" parameterType="Role">
+        update smbms_role
+        <set>
+            <if test="roleCode!=null">roleCode=#{roleCode},</if>
+            <if test="roleName!=null">roleName=#{roleName},</if>
+            <if test="modifyBy!=null">modifyBy=#{modifyBy},</if>
+            <if test="modifyDate!=null">modifyDate=#{modifyDate},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--使用if+trim实现根据角色名称模糊查询角色信息，并分页展示-->
+    <select id="getRolelikeByName" resultType="Role">
+        select * from smbms_role
+        <trim prefix="where" prefixOverrides="and | or" suffix="limit #{from},#{pageSize}">
+            <if test="roleName!=null">
+                and roleName like CONCAT('%',#{roleName},'%')
+            </if>
+        </trim>
+    </select>
+</mapper>

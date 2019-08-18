@@ -36,6 +36,7 @@
 		<mapper resource="cn/qwx/dao/user/UserMapper.xml"/>
 		<mapper resource="cn/qwx/dao/Bill/BillMapper.xml"/>
 		<mapper resource="cn/qwx/dao/provider/ProviderMapper.xml"/>
+		<mapper resource="cn/qwx/dao/role/RoleMapper.xml"/>
 	</mappers>
 
 </configuration>
